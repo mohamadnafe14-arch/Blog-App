@@ -15,7 +15,7 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     Future.delayed(const Duration(seconds: 3), () {
       // ignore: use_build_context_synchronously
-      GoRouter.of(context).push(AppRouter.signInRoute);
+      GoRouter.of(context).push(AppRouter.signUpRoute);
     });
     super.initState();
   }
