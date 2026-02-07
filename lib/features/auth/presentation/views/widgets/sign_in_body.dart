@@ -1,3 +1,4 @@
+import 'package:blog_app/core/utils/app_router.dart';
 import 'package:blog_app/features/auth/presentation/views/widgets/auth_button.dart';
 import 'package:blog_app/features/auth/presentation/views/widgets/auth_text_form_field.dart';
 import 'package:blog_app/features/auth/presentation/views/widgets/custom_text_button.dart';
@@ -5,16 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class SignUpBody extends StatefulWidget {
-  const SignUpBody({super.key});
+class SignInBody extends StatefulWidget {
+  const SignInBody({super.key});
 
   @override
-  State<SignUpBody> createState() => _SignUpBodyState();
+  State<SignInBody> createState() => _SignInBodyState();
 }
 
-class _SignUpBodyState extends State<SignUpBody> {
+class _SignInBodyState extends State<SignInBody> {
   late GlobalKey<FormState> formKey;
-  String? name, email, password;
+  String? email, password;
   @override
   void initState() {
     formKey = GlobalKey<FormState>();
@@ -36,23 +37,10 @@ class _SignUpBodyState extends State<SignUpBody> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 100.h),
+              SizedBox(height: 150.h),
               Text(
-                'Sign Up',
+                'Sign In',
                 style: TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 20.h),
-              AuthTextFormField(
-                hintText: 'Name',
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Name is required';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  name = value;
-                },
               ),
               SizedBox(height: 20.h),
               AuthTextFormField(
@@ -90,21 +78,19 @@ class _SignUpBodyState extends State<SignUpBody> {
                     formKey.currentState!.save();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(
-                          'Name: $name\nEmail: $email\nPassword: $password',
-                        ),
+                        content: Text('Email: $email\nPassword: $password'),
                       ),
                     );
                   }
                 },
-                text: 'Sign Up',
+                text: 'Sign In',
               ),
               SizedBox(height: 20.h),
               CustomTextButton(
-                firstText: "Already have an account?",
-                btnText: "Sign In",
+                firstText: "Don't have an account?",
+                btnText: "Sign Up",
                 onTap: () {
-                  GoRouter.of(context).pop();
+                  GoRouter.of(context).push(AppRouter.signUpRoute);
                 },
               ),
             ],
