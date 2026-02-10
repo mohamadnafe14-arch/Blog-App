@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
- final supabase = await Supabase.initialize(
+  WidgetsFlutterBinding.ensureInitialized();
+  final supabase = await Supabase.initialize(
     url: AppSecrets.supaBaseUrl,
     anonKey: AppSecrets.supaKey,
   );
