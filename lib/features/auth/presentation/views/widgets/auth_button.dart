@@ -3,9 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton({super.key, required this.onPressed, required this.text});
+  const AuthButton({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    required this.isLoading,
+  });
   final VoidCallback onPressed;
   final String text;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,10 +30,12 @@ class AuthButton extends StatelessWidget {
           fixedSize: Size(300.w, 50.h),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
-        ),
+        child: isLoading
+            ? const CircularProgressIndicator()
+            : Text(
+                text,
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
+              ),
       ),
     );
   }

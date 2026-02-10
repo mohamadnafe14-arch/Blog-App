@@ -1,7 +1,10 @@
+import 'package:blog_app/features/auth/domain/usecases/sign_up_use_case.dart';
+import 'package:blog_app/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:blog_app/features/auth/presentation/views/widgets/auth_button.dart';
 import 'package:blog_app/features/auth/presentation/views/widgets/auth_text_form_field.dart';
 import 'package:blog_app/features/auth/presentation/views/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -84,20 +87,33 @@ class _SignUpBodyState extends State<SignUpBody> {
                 },
               ),
               SizedBox(height: 20.h),
-              AuthButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Name: $name\nEmail: $email\nPassword: $password',
-                        ),
-                      ),
-                    );
-                  }
+              BlocBuilder<AuthCubit, AuthState>(
+                builder: (context, state) {
+                  final isLoading = state is AuthLoading;
+                  return AuthButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        BlocProvider.of<AuthCubit>(context).signUp(
+                          params: SignUpUseCaseParam(
+                            email: email!,
+                            password: password!,
+                            name: name!,
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Name: $name\nEmail: $email\nPassword: $password',
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    text: 'Sign Up',
+                    isLoading: isLoading,
+                  );
                 },
-                text: 'Sign Up',
               ),
               SizedBox(height: 20.h),
               CustomTextButton(
