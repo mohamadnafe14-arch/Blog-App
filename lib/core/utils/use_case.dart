@@ -1,3 +1,6 @@
+import 'package:blog_app/core/errors/failure.dart';
+import 'package:fpdart/fpdart.dart';
+
 abstract class UseCase<T, Params> {
-  Future<T> call(Params params);
+  Future<Either<Failure, T>> call(Params params);
 }
