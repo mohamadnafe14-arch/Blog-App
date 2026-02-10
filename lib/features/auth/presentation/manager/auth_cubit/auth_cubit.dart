@@ -1,8 +1,26 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
+
+import 'package:blog_app/features/auth/domain/usecases/sign_in_use_case.dart';
+import 'package:blog_app/features/auth/domain/usecases/sign_up_use_case.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  final SignInUseCase signInUseCase;
+  final SignUpUseCase signUpUseCase;
+  AuthCubit({required this.signInUseCase, required this.signUpUseCase})
+    : super(AuthInitial());
+  Future<void> signIn({required SignInUseCaseParams params}) async {
+    emit(AuthLoading());
+    final res = await signInUseCase.call(params);
+    res.fold((l) => emit(AuthError(l.errMessage)), (r) => emit(AuthSuccess(r)));
+  }
+
+  Future<void> signUp({required SignUpUseCaseParam params}) async {
+    emit(AuthLoading());
+    final res = await signUpUseCase.call(params);
+    res.fold((l) => emit(AuthError(l.errMessage)), (r) => emit(AuthSuccess(r)));
+  }
 }
