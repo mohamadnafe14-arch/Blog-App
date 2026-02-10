@@ -1,16 +1,18 @@
 import 'package:blog_app/core/secrets/app_secrets.dart';
 import 'package:blog_app/core/theme/app_theme.dart';
 import 'package:blog_app/core/utils/app_router.dart';
+import 'package:blog_app/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   await Supabase.initialize(
+  await Supabase.initialize(
     url: AppSecrets.supaBaseUrl,
     anonKey: AppSecrets.supaKey,
   );
+  setupServiceLocator();
   runApp(const BlogApp());
 }
 

@@ -25,5 +25,4 @@ void setupServiceLocator() {
   getIt.registerSingleton<SignUpUseCase>(
     SignUpUseCase(getIt.get<AuthRepo>()),
   );
-  
 }
