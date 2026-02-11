@@ -1,3 +1,4 @@
+import 'package:blog_app/core/functions/auth_success.dart';
 import 'package:blog_app/core/utils/app_router.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:blog_app/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
@@ -78,13 +79,15 @@ class _SignInBodyState extends State<SignInBody> {
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is AuthError) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.message)),
-                    );
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(state.message)));
+                  }
+                  if (state is AuthSuccess) {
+                    authSuccess(context, "Signed In Successfully");
                   }
                 },
                 builder: (context, state) {
-                  final isLoading = state is AuthLoading;
                   return AuthButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
@@ -95,15 +98,10 @@ class _SignInBodyState extends State<SignInBody> {
                             password: password!,
                           ),
                         );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Email: $email\nPassword: $password'),
-                          ),
-                        );
                       }
                     },
                     text: 'Sign In',
-                    isLoading: isLoading,
+                    isLoading: state is AuthLoading,
                   );
                 },
               ),

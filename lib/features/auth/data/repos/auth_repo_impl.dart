@@ -21,7 +21,7 @@ class AuthRepoImpl implements AuthRepo {
       );
       return Right(res);
     } on ServerException catch (e) {
-      return Left(Failure(e.toString()));
+      return Left(Failure(e.message));
     }
   }
 
@@ -38,8 +38,8 @@ class AuthRepoImpl implements AuthRepo {
         name: name,
       );
       return Right(res);
-    } on ServerException catch (e) {
-      return Left(Failure(e.toString()));
+    }  on ServerException catch (e) {
+      return Left(Failure(e.message));
     }
   }
 }

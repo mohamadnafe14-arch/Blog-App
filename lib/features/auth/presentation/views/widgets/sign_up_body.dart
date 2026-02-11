@@ -1,3 +1,4 @@
+import 'package:blog_app/core/functions/auth_success.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:blog_app/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:blog_app/features/auth/presentation/views/widgets/auth_button.dart';
@@ -94,9 +95,11 @@ class _SignUpBodyState extends State<SignUpBody> {
                       context,
                     ).showSnackBar(SnackBar(content: Text(state.message)));
                   }
+                  if (state is AuthSuccess) {
+                    authSuccess(context, "Registration successful");
+                  }
                 },
                 builder: (context, state) {
-                  final isLoading = state is AuthLoading;
                   return AuthButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
@@ -108,17 +111,10 @@ class _SignUpBodyState extends State<SignUpBody> {
                             name: name!,
                           ),
                         );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Name: $name\nEmail: $email\nPassword: $password',
-                            ),
-                          ),
-                        );
                       }
                     },
                     text: 'Sign Up',
-                    isLoading: isLoading,
+                    isLoading: state is AuthLoading,
                   );
                 },
               ),

@@ -15,20 +15,27 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   final SupabaseClient supabaseClient;
 
   RemoteAuthDataSourceImpl(this.supabaseClient);
-
   @override
   Future<UserModel> signIn({
     required String email,
     required String password,
   }) async {
-    final res = await supabaseClient.auth.signInWithPassword(
-      email: email,
-      password: password,
-    );
-    if (res.user == null) {
-      throw ServerException('User not found');
+    try {
+      final res = await supabaseClient.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
+
+      if (res.user == null) {
+        throw ServerException('User not found');
+      }
+
+      return UserModel.fromJson(res.user!.toJson());
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
     }
-    return UserModel.fromJson(res.user!.toJson());
   }
 
   @override
@@ -37,14 +44,22 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
     required String password,
     required String name,
   }) async {
-    final res = await supabaseClient.auth.signUp(
-      email: email,
-      password: password,
-      data: {'name': name},
-    );
-    if (res.user == null) {
-      throw ServerException('User not found');
+    try {
+      final res = await supabaseClient.auth.signUp(
+        email: email,
+        password: password,
+        data: {'name': name},
+      );
+
+      if (res.user == null) {
+        throw ServerException('User not found');
+      }
+
+      return UserModel.fromJson(res.user!.toJson());
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
     }
-    return UserModel.fromJson(res.user!.toJson());
   }
 }
