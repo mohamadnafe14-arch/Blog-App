@@ -1,5 +1,6 @@
 import 'package:blog_app/core/errors/exceptions.dart';
 import 'package:blog_app/core/errors/failure.dart';
+import 'package:blog_app/features/auth/domain/entities/user.dart';
 import 'package:blog_app/features/auth/domain/repos/auth_repo.dart';
 import 'package:blog_app/features/auth/data/data_sources/remote_auth_data_source.dart';
 import 'package:fpdart/fpdart.dart';
@@ -9,7 +10,7 @@ class AuthRepoImpl implements AuthRepo {
 
   AuthRepoImpl(this.remoteAuthDataSource);
   @override
-  Future<Either<Failure, String>> signIn({
+  Future<Either<Failure, User>> signIn({
     required String email,
     required String password,
   }) async {
@@ -25,7 +26,7 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, String>> signUp({
+  Future<Either<Failure, User>> signUp({
     required String email,
     required String password,
     required String name,

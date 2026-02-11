@@ -1,9 +1,10 @@
 import 'package:blog_app/core/errors/exceptions.dart';
+import 'package:blog_app/features/auth/data/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class RemoteAuthDataSource {
-  Future<String> signIn({required String email, required String password});
-  Future<String> signUp({
+  Future<UserModel> signIn({required String email, required String password});
+  Future<UserModel> signUp({
     required String email,
     required String password,
     required String name,
@@ -16,7 +17,7 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   RemoteAuthDataSourceImpl(this.supabaseClient);
 
   @override
-  Future<String> signIn({
+  Future<UserModel> signIn({
     required String email,
     required String password,
   }) async {
@@ -27,11 +28,11 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
     if (res.user == null) {
       throw ServerException('User not found');
     }
-    return res.user!.id;
+    return UserModel.fromJson(res.user!.toJson());
   }
 
   @override
-  Future<String> signUp({
+  Future<UserModel> signUp({
     required String email,
     required String password,
     required String name,
@@ -44,6 +45,6 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
     if (res.user == null) {
       throw ServerException('User not found');
     }
-    return res.user!.id;
+    return UserModel.fromJson(res.user!.toJson());
   }
 }

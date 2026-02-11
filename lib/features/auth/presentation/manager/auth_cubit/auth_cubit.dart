@@ -1,4 +1,5 @@
 
+import 'package:blog_app/features/auth/domain/entities/user.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:flutter/material.dart';
