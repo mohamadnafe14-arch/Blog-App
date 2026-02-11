@@ -87,7 +87,14 @@ class _SignUpBodyState extends State<SignUpBody> {
                 },
               ),
               SizedBox(height: 20.h),
-              BlocBuilder<AuthCubit, AuthState>(
+              BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthError) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(state.message)));
+                  }
+                },
                 builder: (context, state) {
                   final isLoading = state is AuthLoading;
                   return AuthButton(
