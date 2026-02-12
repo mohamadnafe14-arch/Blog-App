@@ -9,6 +9,8 @@ abstract class RemoteAuthDataSource {
     required String password,
     required String name,
   });
+  Session? get currentSession;
+  Future<UserModel?> getCurrentUser();
 }
 
 class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
@@ -58,6 +60,30 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
       return UserModel.fromJson(res.user!.toJson());
     } on AuthException catch (e) {
       throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Session? get currentSession {
+    return supabaseClient.auth.currentSession;
+  }
+
+  @override
+  Future<UserModel?> getCurrentUser() async {
+    try {
+      final session = supabaseClient.auth.currentSession;
+      if (session == null) {
+        return null;
+      }
+      final userData = await supabaseClient
+          .from('profiles')
+          .select()
+          .eq('id', session.user.id)
+          .single();
+
+      return UserModel.fromJson(userData).copyWith(email: session.user.email);
     } catch (e) {
       throw ServerException(e.toString());
     }

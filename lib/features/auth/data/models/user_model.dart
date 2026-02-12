@@ -8,4 +8,10 @@ class UserModel extends User {
     email: json['email'] ?? "",
     name: json['name'] ?? "",
   );
+  @override
+  UserModel copyWith({String? id, String? email, String? name}) => UserModel(
+    id: id ?? this.id,
+    email: email ?? this.email,
+    name: name ?? this.name,
+  );
 }

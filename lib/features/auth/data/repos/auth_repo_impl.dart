@@ -42,4 +42,15 @@ class AuthRepoImpl implements AuthRepo {
       return Left(Failure(e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, User>> getCurrentUser() async {
+    try {
+      final res = await remoteAuthDataSource.getCurrentUser();
+      if (res == null) return Left(Failure('User not found'));
+      return Right(res);
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    }
+  }
 }

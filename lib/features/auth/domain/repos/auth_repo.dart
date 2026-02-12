@@ -13,4 +13,5 @@ abstract class AuthRepo {
     required String password,
     required String name,
   });
+  Future<Either<Failure, User>> getCurrentUser();
 }
