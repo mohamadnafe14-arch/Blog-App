@@ -30,8 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> getCurrentUser() async {
-    emit(AuthLoading());
     final res = await getCurrentUserUseCase.call(NoParam());
-    res.fold((l) => emit(AuthError(l.errMessage)), (r) => emit(AuthSuccess(r)));
+    res.fold((l) => emit(AuthInitial()), (r) => emit(AuthSuccess(r)));
   }
 }

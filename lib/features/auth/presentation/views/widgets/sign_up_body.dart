@@ -1,3 +1,4 @@
+
 import 'package:blog_app/core/functions/auth_success.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:blog_app/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
@@ -10,8 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class SignUpBody extends StatefulWidget {
-  const SignUpBody({super.key});
-
+  const SignUpBody({super.key, required this.goToBlogPage});
+  final VoidCallback goToBlogPage;
   @override
   State<SignUpBody> createState() => _SignUpBodyState();
 }
@@ -97,6 +98,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                   }
                   if (state is AuthSuccess) {
                     authSuccess(context, "Registration successful");
+                    widget.goToBlogPage();
                   }
                 },
                 builder: (context, state) {

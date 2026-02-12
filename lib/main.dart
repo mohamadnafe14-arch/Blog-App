@@ -29,7 +29,7 @@ class BlogApp extends StatelessWidget {
           signUpUseCase: getIt.get<SignUpUseCase>(),
           signInUseCase: getIt.get<SignInUseCase>(),
           getCurrentUserUseCase: getIt.get<GetCurrentUserUseCase>(),
-        ),
+        )..getCurrentUser(),
         child: MaterialApp.router(
           routerConfig: AppRouter.appRouter,
           debugShowCheckedModeBanner: false,

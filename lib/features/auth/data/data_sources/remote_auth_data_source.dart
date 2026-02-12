@@ -17,6 +17,7 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   final SupabaseClient supabaseClient;
 
   RemoteAuthDataSourceImpl(this.supabaseClient);
+
   @override
   Future<UserModel> signIn({
     required String email,
@@ -28,11 +29,12 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
         password: password,
       );
 
-      if (res.user == null) {
-        throw ServerException('User not found');
+      final user = res.user;
+      if (user == null) {
+        throw ServerException('Invalid email or password');
       }
 
-      return UserModel.fromJson(res.user!.toJson());
+      return UserModel.fromJson(user.toJson());
     } on AuthException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
@@ -53,11 +55,12 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
         data: {'name': name},
       );
 
-      if (res.user == null) {
-        throw ServerException('User not found');
+      final user = res.user;
+      if (user == null) {
+        throw ServerException('Sign up failed');
       }
 
-      return UserModel.fromJson(res.user!.toJson());
+      return UserModel.fromJson(user.toJson());
     } on AuthException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
@@ -66,24 +69,27 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   }
 
   @override
-  Session? get currentSession {
-    return supabaseClient.auth.currentSession;
-  }
+  Session? get currentSession => supabaseClient.auth.currentSession;
 
   @override
   Future<UserModel?> getCurrentUser() async {
     try {
-      final session = supabaseClient.auth.currentSession;
-      if (session == null) {
-        return null;
-      }
+      final user = supabaseClient.auth.currentUser;
+      if (user == null) return null;
+
       final userData = await supabaseClient
           .from('profiles')
           .select()
-          .eq('id', session.user.id)
-          .single();
+          .eq('id', user.id)
+          .maybeSingle();
 
-      return UserModel.fromJson(userData).copyWith(email: session.user.email);
+      if (userData == null) return null;
+
+      return UserModel.fromJson(userData).copyWith(email: user.email);
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }

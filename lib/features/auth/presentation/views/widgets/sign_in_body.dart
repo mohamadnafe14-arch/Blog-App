@@ -11,7 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class SignInBody extends StatefulWidget {
-  const SignInBody({super.key});
+  const SignInBody({super.key, required this.gotoBlogPage});
+    final VoidCallback gotoBlogPage;
 
   @override
   State<SignInBody> createState() => _SignInBodyState();
@@ -85,6 +86,7 @@ class _SignInBodyState extends State<SignInBody> {
                   }
                   if (state is AuthSuccess) {
                     authSuccess(context, "Signed In Successfully");
+                    widget.gotoBlogPage();
                   }
                 },
                 builder: (context, state) {
