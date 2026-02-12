@@ -1,6 +1,7 @@
 import 'package:blog_app/core/theme/app_theme.dart';
 import 'package:blog_app/core/utils/app_router.dart';
 import 'package:blog_app/core/utils/service_locator.dart';
+import 'package:blog_app/features/auth/domain/usecases/get_current_user_use_case.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:blog_app/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
@@ -27,6 +28,7 @@ class BlogApp extends StatelessWidget {
         create: (context) => AuthCubit(
           signUpUseCase: getIt.get<SignUpUseCase>(),
           signInUseCase: getIt.get<SignInUseCase>(),
+          getCurrentUserUseCase: getIt.get<GetCurrentUserUseCase>(),
         ),
         child: MaterialApp.router(
           routerConfig: AppRouter.appRouter,
