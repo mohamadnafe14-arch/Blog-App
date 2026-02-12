@@ -1,5 +1,7 @@
+import 'package:blog_app/core/utils/app_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BlogView extends StatelessWidget {
   const BlogView({super.key});
@@ -13,7 +15,9 @@ class BlogView extends StatelessWidget {
           centerTitle: true,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                GoRouter.of(context).go(AppRouter.addBlogRoute);
+              },
               icon: Icon(CupertinoIcons.add_circled),
             ),
           ],
