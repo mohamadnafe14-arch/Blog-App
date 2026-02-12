@@ -1,6 +1,7 @@
 import 'package:blog_app/features/auth/presentation/views/sign_in_view.dart';
 import 'package:blog_app/features/auth/presentation/views/sign_up_view.dart';
 import 'package:blog_app/features/auth/presentation/views/splash_view.dart';
+import 'package:blog_app/features/blog/presentation/views/add_blog_view.dart';
 import 'package:blog_app/features/blog/presentation/views/blog_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,6 +10,7 @@ class AppRouter {
   static const String signUpRoute = '/sign-up';
   static const String signInRoute = '/sign-in';
   static const String blogRoute = '/blog';
+  static const String addBlogRoute = '/add-blog';
   static final appRouter = GoRouter(
     routes: [
       GoRoute(
@@ -26,6 +28,10 @@ class AppRouter {
       GoRoute(
         path: blogRoute,
         builder: (context, state) => const BlogView(),
+      ),
+      GoRoute(
+        path: addBlogRoute,
+        builder: (context, state) => const AddBlogView(),
       ),
     ],
   );
