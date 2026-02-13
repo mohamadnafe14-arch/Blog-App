@@ -29,7 +29,7 @@ class _AddingPhotoWidgetState extends State<AddingPhotoWidget> {
           _image = await pickImage();
           setState(() {});
         },
-        child: _image != null
+        child: _image!= null
             ? ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(10.r),
                 child: Image.file(
