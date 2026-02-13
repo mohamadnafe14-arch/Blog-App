@@ -15,7 +15,7 @@ class AddingPhotoWidget extends StatelessWidget {
         color: AppPallete.borderColor,
         strokeCap: StrokeCap.round,
       ),
-      child: Container(
+      child: SizedBox(
         height: 200.h,
         width: 200.w,
         child: Column(
