@@ -5,6 +5,7 @@ import 'package:blog_app/features/auth/domain/repos/auth_repo.dart';
 import 'package:blog_app/features/auth/domain/usecases/get_current_user_use_case.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_up_use_case.dart';
+import 'package:blog_app/features/blog/data/data_sources/remote_add_blog_data_source.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -26,5 +27,8 @@ Future<void> setupServiceLocator() async {
   getIt.registerSingleton<SignUpUseCase>(SignUpUseCase(getIt.get<AuthRepo>()));
   getIt.registerSingleton<GetCurrentUserUseCase>(
     GetCurrentUserUseCase(getIt.get<AuthRepo>()),
+  );
+  getIt.registerSingleton<RemoteAddBlogDataSource>(
+    RemoteAddBlogDataSourceImpl(getIt.get<SupabaseClient>()),
   );
 }
