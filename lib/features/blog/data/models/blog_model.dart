@@ -27,7 +27,26 @@ class BlogModel extends Blog {
     posterId: map['posterId'] as String,
     content: map['content'] as String,
     imageUrl: map['imageUrl'] as String,
-    topics: List<String>.from(map['topics'] as List<String> 
-    ),
+    topics: List<String>.from(map['topics'] as List<String>),
   );
+  @override
+  BlogModel copyWith({
+    String? id,
+    DateTime? updatedAt,
+    String? title,
+    String? posterId,
+    String? content,
+    String? imageUrl,
+    List<String>? topics,
+  }) {
+    return BlogModel(
+      id: id ?? this.id,
+      updatedAt: updatedAt ?? this.updatedAt,
+      title: title ?? this.title,
+      posterId: posterId ?? this.posterId,
+      content: content ?? this.content,
+      imageUrl: imageUrl ?? this.imageUrl,
+      topics: topics ?? this.topics,
+    );
+  }
 }
