@@ -1,6 +1,6 @@
-import 'package:blog_app/features/blog/presentation/widgets/adding_photo_widget.dart';
-import 'package:blog_app/features/blog/presentation/widgets/categroy_chips.dart';
-import 'package:blog_app/features/blog/presentation/widgets/custom_text_form_field.dart';
+import 'package:blog_app/features/blog/presentation/views/widgets/adding_photo_widget.dart';
+import 'package:blog_app/features/blog/presentation/views/widgets/categroy_chips.dart';
+import 'package:blog_app/features/blog/presentation/views/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

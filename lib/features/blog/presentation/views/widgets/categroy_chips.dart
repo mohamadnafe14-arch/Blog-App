@@ -1,4 +1,4 @@
-import 'package:blog_app/features/blog/presentation/widgets/category_item.dart';
+import 'package:blog_app/features/blog/presentation/views/widgets/category_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

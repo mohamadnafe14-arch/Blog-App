@@ -1,4 +1,4 @@
-import 'package:blog_app/features/blog/presentation/widgets/add_blog_body.dart';
+import 'package:blog_app/features/blog/presentation/views/widgets/add_blog_body.dart';
 import 'package:flutter/material.dart';
 
 class AddBlogView extends StatelessWidget {
