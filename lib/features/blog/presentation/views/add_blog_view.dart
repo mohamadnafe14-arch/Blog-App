@@ -8,11 +8,6 @@ class AddBlogView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Add Blog"),
-          centerTitle: true,
-          actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.done))],
-        ),
         body: AddBlogBody(),
       ),
     );

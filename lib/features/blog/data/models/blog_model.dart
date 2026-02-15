@@ -9,14 +9,15 @@ class BlogModel extends Blog {
     required super.content,
     required super.imageUrl,
     required super.topics,
+    super.name,
   });
   Map<String, dynamic> toMap() => {
     'id': id,
-    'updatedAt': updatedAt,
+    'updated_at': updatedAt.toIso8601String(),
     'title': title,
-    'posterId': posterId,
+    'poster_id': posterId,
     'content': content,
-    'imageUrl': imageUrl,
+    'image_url': imageUrl,
     'topics': topics,
   };
 
@@ -24,7 +25,7 @@ class BlogModel extends Blog {
     id: map['id'] as String,
     updatedAt: map['updatedAt'] as DateTime,
     title: map['title'] as String,
-    posterId: map['posterId'] as String,
+    posterId: map['poster_id'] as String,
     content: map['content'] as String,
     imageUrl: map['imageUrl'] as String,
     topics: List<String>.from(map['topics'] as List<String>),
@@ -38,6 +39,7 @@ class BlogModel extends Blog {
     String? content,
     String? imageUrl,
     List<String>? topics,
+    String? name,
   }) {
     return BlogModel(
       id: id ?? this.id,
@@ -47,6 +49,7 @@ class BlogModel extends Blog {
       content: content ?? this.content,
       imageUrl: imageUrl ?? this.imageUrl,
       topics: topics ?? this.topics,
+      name: name ?? this.name,
     );
   }
 }

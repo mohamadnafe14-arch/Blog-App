@@ -8,6 +8,8 @@ part 'blog_state.dart';
 
 class BlogCubit extends Cubit<BlogState> {
   final AddBlogUseCase addBlogUseCase;
+  List<String> topics = [];
+  File? image; 
   BlogCubit(this.addBlogUseCase) : super(BlogInitial());
   Future<void> addBlog({
     required String title,
@@ -30,5 +32,21 @@ class BlogCubit extends Cubit<BlogState> {
       (l) => emit(BlogFailure(l.errMessage)),
       (r) => emit(BlogSuccess()),
     );
+  }
+  void considerTopics(String topic) {
+    if (topics.contains(topic)) {
+      topics.remove(topic);
+    } else {
+      topics.add(topic);
+    }
+  }
+  void clearTopics() {
+    topics.clear();
+  }
+  void clearImage() {
+    image = null;
+  }
+  void setImage(File image) {
+    this.image = image;
   }
 }

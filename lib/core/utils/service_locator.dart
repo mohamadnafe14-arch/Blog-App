@@ -5,7 +5,10 @@ import 'package:blog_app/features/auth/domain/repos/auth_repo.dart';
 import 'package:blog_app/features/auth/domain/usecases/get_current_user_use_case.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_up_use_case.dart';
-import 'package:blog_app/features/blog/data/data_sources/remote_add_blog_data_source.dart';
+import 'package:blog_app/features/blog/data/data_sources/remote_blog_data_source.dart';
+import 'package:blog_app/features/blog/data/repos/blog_repo_impl.dart';
+import 'package:blog_app/features/blog/domain/repos/blog_repo.dart';
+import 'package:blog_app/features/blog/domain/usecases/add_blog_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -28,7 +31,13 @@ Future<void> setupServiceLocator() async {
   getIt.registerSingleton<GetCurrentUserUseCase>(
     GetCurrentUserUseCase(getIt.get<AuthRepo>()),
   );
-  getIt.registerSingleton<RemoteAddBlogDataSource>(
-    RemoteAddBlogDataSourceImpl(getIt.get<SupabaseClient>()),
+  getIt.registerSingleton<RemoteBlogDataSource>(
+    RemoteBlogDataSourceImpl(getIt.get<SupabaseClient>()),
+  );
+  getIt.registerSingleton<BlogRepo>(
+    BlogRepoImpl(getIt.get<RemoteBlogDataSource>()),
+  );
+  getIt.registerSingleton<AddBlogUseCase>(
+    AddBlogUseCase(blogRepo: getIt.get<BlogRepo>()),
   );
 }

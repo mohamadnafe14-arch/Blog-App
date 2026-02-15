@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:blog_app/core/utils/image_taking.dart';
+import 'package:blog_app/features/blog/presentation/manager/blog_cubit/blog_cubit.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddingPhotoWidget extends StatefulWidget {
@@ -27,16 +29,18 @@ class _AddingPhotoWidgetState extends State<AddingPhotoWidget> {
       child: GestureDetector(
         onTap: () async {
           _image = await pickImage();
+          // ignore: use_build_context_synchronously
+          BlocProvider.of<BlogCubit>(context).setImage(_image!);
           setState(() {});
         },
-        child: _image!= null
+        child: _image != null
             ? ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(10.r),
                 child: Image.file(
                   _image!,
-                  fit: BoxFit.cover,
                   height: 200.h,
-                  width: 200.w,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
               )
             : SizedBox(

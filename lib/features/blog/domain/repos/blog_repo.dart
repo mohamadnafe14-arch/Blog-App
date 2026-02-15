@@ -12,4 +12,6 @@ abstract class BlogRepo {
     required File image,
     required List<String> topics,
   });
+
+  Future<Either<Failure, List<Blog>>> getBlogs();
 }

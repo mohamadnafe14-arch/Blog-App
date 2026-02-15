@@ -6,15 +6,16 @@ class Blog {
   final String content;
   final String? imageUrl;
   final List<String>? topics;
-
+  final String? name;
   Blog({
     required this.id,
     required this.updatedAt,
     required this.title,
     required this.posterId,
     required this.content,
-    this.imageUrl,
-    this.topics,
+    required this.imageUrl,
+    required this.topics,
+    this.name,
   });
 
   Blog copyWith({
@@ -25,6 +26,7 @@ class Blog {
     String? content,
     String? imageUrl,
     List<String>? topics,
+    String? name,
   }) {
     return Blog(
       id: id ?? this.id,
@@ -34,6 +36,7 @@ class Blog {
       content: content ?? this.content,
       imageUrl: imageUrl ?? this.imageUrl,
       topics: topics ?? this.topics,
+      name: name ?? this.name,
     );
   }
 }

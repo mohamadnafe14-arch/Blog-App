@@ -10,6 +10,7 @@ class AppTheme {
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       enabledBorder: _border(),
       focusedBorder: _border(AppPallete.gradient2),
+      errorBorder: _border(AppPallete.errorColor),
       contentPadding: EdgeInsets.all(16.w),
     ),
   );
