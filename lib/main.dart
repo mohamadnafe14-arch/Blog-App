@@ -6,6 +6,7 @@ import 'package:blog_app/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:blog_app/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:blog_app/features/blog/domain/usecases/add_blog_use_case.dart';
+import 'package:blog_app/features/blog/domain/usecases/fetch_blogs_use_case.dart';
 import 'package:blog_app/features/blog/presentation/manager/blog_cubit/blog_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,10 @@ class BlogApp extends StatelessWidget {
             )..getCurrentUser(),
           ),
           BlocProvider<BlogCubit>(
-            create: (context) => BlogCubit(getIt.get<AddBlogUseCase>()),
+            create: (context) => BlogCubit(
+              addBlogUseCase: getIt.get<AddBlogUseCase>(),
+              fetchBlogsUseCase: getIt.get<FetchBlogsUseCase>(),
+            )..fetchBlogs(),
           ),
         ],
         child: MaterialApp.router(

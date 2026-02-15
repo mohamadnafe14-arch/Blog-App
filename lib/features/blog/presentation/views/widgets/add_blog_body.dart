@@ -22,7 +22,7 @@ class _AddBlogBodyState extends State<AddBlogBody> {
   Widget build(BuildContext context) {
     return BlocListener<BlogCubit, BlogState>(
       listener: (context, state) {
-        if (state is BlogSuccess) {
+        if (state is BlogUploadSuccess) {
           GoRouter.of(context).go(AppRouter.blogRoute);
         }
       },

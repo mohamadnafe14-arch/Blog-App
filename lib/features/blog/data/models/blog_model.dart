@@ -23,13 +23,14 @@ class BlogModel extends Blog {
 
   factory BlogModel.fromMap(Map<String, dynamic> map) => BlogModel(
     id: map['id'] as String,
-    updatedAt: map['updatedAt'] as DateTime,
+    updatedAt: DateTime.parse(map['updated_at'] as String),
     title: map['title'] as String,
     posterId: map['poster_id'] as String,
     content: map['content'] as String,
-    imageUrl: map['imageUrl'] as String,
-    topics: List<String>.from(map['topics'] as List<String>),
+    imageUrl: map['image_url'] as String?,
+    topics: List<String>.from(map['topics'] ?? []),
   );
+
   @override
   BlogModel copyWith({
     String? id,

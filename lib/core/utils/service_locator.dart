@@ -9,6 +9,7 @@ import 'package:blog_app/features/blog/data/data_sources/remote_blog_data_source
 import 'package:blog_app/features/blog/data/repos/blog_repo_impl.dart';
 import 'package:blog_app/features/blog/domain/repos/blog_repo.dart';
 import 'package:blog_app/features/blog/domain/usecases/add_blog_use_case.dart';
+import 'package:blog_app/features/blog/domain/usecases/fetch_blogs_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -39,5 +40,8 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerSingleton<AddBlogUseCase>(
     AddBlogUseCase(blogRepo: getIt.get<BlogRepo>()),
+  );
+  getIt.registerSingleton<FetchBlogsUseCase>(
+    FetchBlogsUseCase(blogRepo: getIt.get<BlogRepo>()),
   );
 }

@@ -1,4 +1,5 @@
 import 'package:blog_app/core/utils/app_router.dart';
+import 'package:blog_app/features/blog/presentation/views/widgets/blogs_body.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +23,7 @@ class BlogView extends StatelessWidget {
             ),
           ],
         ),
+        body: BlogsBody(),
       ),
     );
   }
