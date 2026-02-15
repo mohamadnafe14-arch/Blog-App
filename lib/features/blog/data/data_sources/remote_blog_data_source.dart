@@ -19,6 +19,7 @@ class RemoteBlogDataSourceImpl implements RemoteBlogDataSource {
       final response = await supabaseClient
           .from('blogs')
           .insert(blogModel.toMap())
+          .select()
           .single();
       return BlogModel.fromMap(response);
     } on Exception catch (e) {

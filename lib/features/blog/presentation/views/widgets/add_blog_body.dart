@@ -1,4 +1,3 @@
-import 'package:blog_app/core/utils/app_router.dart';
 import 'package:blog_app/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:blog_app/features/blog/presentation/manager/blog_cubit/blog_cubit.dart';
 import 'package:blog_app/features/blog/presentation/views/widgets/adding_photo_widget.dart';
@@ -7,10 +6,10 @@ import 'package:blog_app/features/blog/presentation/views/widgets/custom_text_fo
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 class AddBlogBody extends StatefulWidget {
-  const AddBlogBody({super.key});
+  final VoidCallback pop;
+  const AddBlogBody({super.key, required this.pop});
   @override
   State<AddBlogBody> createState() => _AddBlogBodyState();
 }
@@ -18,12 +17,20 @@ class AddBlogBody extends StatefulWidget {
 class _AddBlogBodyState extends State<AddBlogBody> {
   final formKey = GlobalKey<FormState>();
   String? title, content;
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<BlogCubit, BlogState>(
       listener: (context, state) {
         if (state is BlogUploadSuccess) {
-          GoRouter.of(context).go(AppRouter.blogRoute);
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('Blog added')));
+          widget.pop();
+        } else if (state is BlogFailure) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
       child: Form(
@@ -44,10 +51,8 @@ class _AddBlogBodyState extends State<AddBlogBody> {
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           formKey.currentState!.save();
-                          final image = BlocProvider.of<BlogCubit>(
-                            context,
-                          ).image;
-                          if (image == null) {
+                          final cubit = BlocProvider.of<BlogCubit>(context);
+                          if (cubit.image == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Please add a photo'),
@@ -55,10 +60,7 @@ class _AddBlogBodyState extends State<AddBlogBody> {
                             );
                             return;
                           }
-                          final topics = BlocProvider.of<BlogCubit>(
-                            context,
-                          ).topics;
-                          if (topics.isEmpty) {
+                          if (cubit.topics.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Please add a topic'),
@@ -66,7 +68,7 @@ class _AddBlogBodyState extends State<AddBlogBody> {
                             );
                             return;
                           }
-                          BlocProvider.of<BlogCubit>(context).addBlog(
+                          cubit.addBlog(
                             title: title!,
                             posterId:
                                 (BlocProvider.of<AuthCubit>(context).state
@@ -74,15 +76,9 @@ class _AddBlogBodyState extends State<AddBlogBody> {
                                     .user
                                     .id,
                             content: content!,
-                            image: image,
-                            topics: topics,
+                            image: cubit.image!,
+                            topics: cubit.topics,
                           );
-                          BlocProvider.of<BlogCubit>(context).clearImage();
-                          BlocProvider.of<BlogCubit>(context).clearTopics();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Blog added')),
-                          );
-                          GoRouter.of(context).go(AppRouter.blogRoute);
                         }
                       },
                     ),

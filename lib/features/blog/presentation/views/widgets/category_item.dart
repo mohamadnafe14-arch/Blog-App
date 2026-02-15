@@ -3,30 +3,26 @@ import 'package:blog_app/features/blog/presentation/manager/blog_cubit/blog_cubi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CategoryItem extends StatefulWidget {
-  const CategoryItem({super.key, required this.name});
+class CategoryItem extends StatelessWidget {
   final String name;
+  const CategoryItem({super.key, required this.name});
 
-  @override
-  State<CategoryItem> createState() => _CategoryItemState();
-}
-
-class _CategoryItemState extends State<CategoryItem> {
-  bool isSelected = false;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        isSelected = !isSelected;
-        BlocProvider.of<BlogCubit>(context).considerTopics(widget.name);
-        setState(() {});
+    return BlocBuilder<BlogCubit, BlogState>(
+      builder: (context, state) {
+        final cubit = BlocProvider.of<BlogCubit>(context);
+        final isSelected = cubit.isTopicSelected(name);
+        return GestureDetector(
+          onTap: () => cubit.toggleTopic(name),
+          child: Chip(
+            label: Text(name),
+            backgroundColor: isSelected
+                ? AppPallete.gradient1
+                : AppPallete.borderColor,
+          ),
+        );
       },
-      child: Chip(
-        label: Text(widget.name),
-        backgroundColor: isSelected
-            ? AppPallete.gradient1
-            : AppPallete.borderColor,
-      ),
     );
   }
 }

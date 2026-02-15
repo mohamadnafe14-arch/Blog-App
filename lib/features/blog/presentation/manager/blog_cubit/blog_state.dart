@@ -18,3 +18,7 @@ final class BlogFailure extends BlogState {
   final String message;
   BlogFailure(this.message);
 }
+final class BlogTopicsUpdated extends BlogState {
+  final List<String> topics;
+  BlogTopicsUpdated(this.topics);
+}

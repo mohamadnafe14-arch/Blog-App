@@ -1,3 +1,4 @@
+
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
 
 class BlogModel extends Blog {
@@ -18,7 +19,7 @@ class BlogModel extends Blog {
     'poster_id': posterId,
     'content': content,
     'image_url': imageUrl,
-    'topics': topics,
+     'topics': topics,
   };
 
   factory BlogModel.fromMap(Map<String, dynamic> map) => BlogModel(

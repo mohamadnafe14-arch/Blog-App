@@ -40,7 +40,7 @@ class BlogApp extends StatelessWidget {
             create: (context) => BlogCubit(
               addBlogUseCase: getIt.get<AddBlogUseCase>(),
               fetchBlogsUseCase: getIt.get<FetchBlogsUseCase>(),
-            )..fetchBlogs(),
+            ),
           ),
         ],
         child: MaterialApp.router(
