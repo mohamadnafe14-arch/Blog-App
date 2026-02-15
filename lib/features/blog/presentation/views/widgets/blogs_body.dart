@@ -1,3 +1,4 @@
+import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:blog_app/features/blog/presentation/manager/blog_cubit/blog_cubit.dart';
 import 'package:blog_app/features/blog/presentation/views/widgets/blog_item.dart';
 import 'package:blog_app/features/blog/presentation/views/widgets/failure_body.dart';
@@ -17,10 +18,17 @@ class BlogsBody extends StatelessWidget {
         } else if (state is BlogFailure) {
           return FailureBody(errMessage: state.message);
         } else if (state is FetchBlogsSuccess) {
-          return ListView.builder(
-            itemCount: state.blogs.length,
-            itemBuilder: (context, index) => BlogItem(blog: state.blogs[index]),
-          );
+          return state.blogs.isEmpty
+              ? const Center(child: Text('No Blogs'))
+              : ListView.builder(
+                  itemCount: state.blogs.length,
+                  itemBuilder: (context, index) => BlogItem(
+                    blog: state.blogs[index],
+                    backgroundColor: index.isOdd
+                        ? AppPallete.gradient2
+                        : AppPallete.gradient1,
+                  ),
+                );
         }
         return Container();
       },
