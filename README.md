@@ -37,139 +37,120 @@ A modern, feature-rich Flutter blog application built with Clean Architecture pr
 
 ## 📸 Screenshots
 
-### Authentication Flow
+### Authentication Screens
 <table>
   <tr>
     <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.00.jpeg" width="250" alt="Splash Screen"/>
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.07 (2).jpeg" width="250" alt="Splash Screen"/>
       <br/>
       <b>Splash Screen</b>
     </td>
     <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.01.jpeg" width="250" alt="Sign In"/>
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.06 (3).jpeg" width="250" alt="Sign In"/>
       <br/>
       <b>Sign In</b>
     </td>
     <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.01 (1).jpeg" width="250" alt="Sign Up"/>
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.06 (1).jpeg" width="250" alt="Sign Up"/>
       <br/>
       <b>Sign Up</b>
     </td>
   </tr>
+  <tr>
+    <td align="center">
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.06 (2).jpeg" width="250" alt="Sign In - Validation"/>
+      <br/>
+      <b>Sign In - Validation</b>
+    </td>
+    <td align="center">
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.06.jpeg" width="250" alt="Sign Up - Validation"/>
+      <br/>
+      <b>Sign Up - Validation</b>
+    </td>
+    <td align="center">
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.05 (2).jpeg" width="250" alt="Signed In Successfully"/>
+      <br/>
+      <b>Signed In Successfully</b>
+    </td>
+  </tr>
 </table>
 
-### Blog Features
+### Blog Feed
 <table>
   <tr>
     <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.01 (2).jpeg" width="250" alt="Blog Feed"/>
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.07.jpeg" width="250" alt="Blog Feed"/>
       <br/>
       <b>Blog Feed</b>
     </td>
     <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.02.jpeg" width="250" alt="Blog Details"/>
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.04.jpeg" width="250" alt="Blog Feed with Categories"/>
+      <br/>
+      <b>Blog Feed with Categories</b>
+    </td>
+    <td align="center">
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.07 (1).jpeg" width="250" alt="Blog Feed - Multiple Posts"/>
+      <br/>
+      <b>Blog Feed - Multiple Posts</b>
+    </td>
+  </tr>
+</table>
+
+### Blog Details
+<table>
+  <tr>
+    <td align="center">
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.00.jpeg" width="250" alt="Blog Details"/>
       <br/>
       <b>Blog Details</b>
     </td>
     <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.04.jpeg" width="250" alt="Add Blog"/>
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.01.jpeg" width="250" alt="Blog Details - My New One"/>
       <br/>
-      <b>Add Blog</b>
+      <b>Blog Details - My New One</b>
+    </td>
+    <td align="center">
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.02.jpeg" width="250" alt="Blog Details - Hell of the Future"/>
+      <br/>
+      <b>Blog Details - Hell of the Future</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.05 (3).jpeg" width="250" alt="Blog Details - Game"/>
+      <br/>
+      <b>Blog Details - Game</b>
     </td>
   </tr>
 </table>
 
-### Additional Screens
+### Add Blog Screens
 <table>
   <tr>
     <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.04 (1).jpeg" width="250" alt="Category Selection"/>
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.05 (1).jpeg" width="250" alt="Add Blog - Empty Form"/>
       <br/>
-      <b>Category Selection</b>
+      <b>Add Blog - Empty Form</b>
     </td>
     <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.04 (2).jpeg" width="250" alt="Image Upload"/>
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.05.jpeg" width="250" alt="Add Blog - Validation"/>
       <br/>
-      <b>Image Upload</b>
+      <b>Add Blog - Validation</b>
     </td>
     <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.05.jpeg" width="250" alt="Blog Content"/>
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.04 (1).jpeg" width="250" alt="Add Blog - With Image"/>
       <br/>
-      <b>Blog Content</b>
+      <b>Add Blog - With Image</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.04 (2).jpeg" width="250" alt="Add Blog - With Content"/>
+      <br/>
+      <b>Add Blog - With Content</b>
     </td>
   </tr>
 </table>
-
-<details>
-<summary>📱 View More Screenshots</summary>
-
-<table>
-  <tr>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.05 (1).jpeg" width="250" alt="Loading State"/>
-      <br/>
-      <b>Loading State</b>
-    </td>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.05 (2).jpeg" width="250" alt="User Profile"/>
-      <br/>
-      <b>User Profile</b>
-    </td>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.05 (3).jpeg" width="250" alt="Blog List"/>
-      <br/>
-      <b>Blog List</b>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.06.jpeg" width="250" alt="Empty State"/>
-      <br/>
-      <b>Empty State</b>
-    </td>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.06 (1).jpeg" width="250" alt="Form Validation"/>
-      <br/>
-      <b>Form Validation</b>
-    </td>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.06 (2).jpeg" width="250" alt="Success Message"/>
-      <br/>
-      <b>Success Message</b>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.06 (3).jpeg" width="250" alt="Error Handling"/>
-      <br/>
-      <b>Error Handling</b>
-    </td>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.06 (4).jpeg" width="250" alt="Responsive Design"/>
-      <br/>
-      <b>Responsive Design</b>
-    </td>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.07.jpeg" width="250" alt="Dark Theme"/>
-      <br/>
-      <b>Dark Theme</b>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.07 (1).jpeg" width="250" alt="Navigation"/>
-      <br/>
-      <b>Navigation</b>
-    </td>
-    <td align="center">
-      <img src="assests/screenshots/WhatsApp Image 2026-02-17 at 01.26.07 (2).jpeg" width="250" alt="Settings"/>
-      <br/>
-      <b>Settings</b>
-    </td>
-  </tr>
-</table>
-
-</details>
 
 ---
 
