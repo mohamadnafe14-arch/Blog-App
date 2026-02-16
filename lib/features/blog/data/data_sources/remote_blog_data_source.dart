@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:blog_app/core/errors/exceptions.dart';
 import 'package:blog_app/features/blog/data/models/blog_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -12,7 +11,9 @@ abstract class RemoteBlogDataSource {
 
 class RemoteBlogDataSourceImpl implements RemoteBlogDataSource {
   final SupabaseClient supabaseClient;
+  
   RemoteBlogDataSourceImpl(this.supabaseClient);
+
   @override
   Future<BlogModel> uploadBlog(BlogModel blogModel) async {
     try {
@@ -22,7 +23,9 @@ class RemoteBlogDataSourceImpl implements RemoteBlogDataSource {
           .select()
           .single();
       return BlogModel.fromMap(response);
-    } on Exception catch (e) {
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
       throw ServerException(e.toString());
     }
   }
@@ -30,13 +33,17 @@ class RemoteBlogDataSourceImpl implements RemoteBlogDataSource {
   @override
   Future<String> uploadImage(BlogModel blogModel, File image) async {
     try {
-      await supabaseClient.storage
-          .from("blog-images")
-          .upload(blogModel.id, image);
+      await supabaseClient.storage.from("blog-images").upload(
+            blogModel.id,
+            image,
+            fileOptions: const FileOptions(upsert: true),
+          );
       return supabaseClient.storage
           .from("blog-images")
           .getPublicUrl(blogModel.id);
-    } on Exception catch (e) {
+    } on StorageException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
       throw ServerException(e.toString());
     }
   }
@@ -46,13 +53,24 @@ class RemoteBlogDataSourceImpl implements RemoteBlogDataSource {
     try {
       final response = await supabaseClient
           .from('blogs')
-          .select("*, profiles(name)");
-      return response
-          .map(
-            (e) => BlogModel.fromMap(e).copyWith(name: e["profiles"]["name"]),
-          )
-          .toList();
-    } on Exception catch (e) {
+          .select("*, profiles(name)")
+          .order('updated_at', ascending: false);
+      
+      return (response as List).map((blogData) {
+        String? userName;
+        
+        if (blogData['profiles'] != null && blogData['profiles'] is Map) {
+          userName = blogData['profiles']['name'] as String?;
+        }
+        
+        return BlogModel.fromMap(blogData).copyWith(
+          name: userName ?? "Unknown User",
+        );
+      }).toList();
+      
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
       throw ServerException(e.toString());
     }
   }

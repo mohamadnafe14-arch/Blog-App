@@ -5,12 +5,15 @@ import 'package:blog_app/features/auth/domain/repos/auth_repo.dart';
 import 'package:blog_app/features/auth/domain/usecases/get_current_user_use_case.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:blog_app/features/auth/domain/usecases/sign_up_use_case.dart';
+import 'package:blog_app/features/blog/data/data_sources/local_blog_data_source.dart';
 import 'package:blog_app/features/blog/data/data_sources/remote_blog_data_source.dart';
+import 'package:blog_app/features/blog/data/models/blog_model.dart';
 import 'package:blog_app/features/blog/data/repos/blog_repo_impl.dart';
 import 'package:blog_app/features/blog/domain/repos/blog_repo.dart';
 import 'package:blog_app/features/blog/domain/usecases/add_blog_use_case.dart';
 import 'package:blog_app/features/blog/domain/usecases/fetch_blogs_use_case.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final getIt = GetIt.instance;
@@ -20,6 +23,9 @@ Future<void> setupServiceLocator() async {
     url: AppSecrets.supaBaseUrl,
     anonKey: AppSecrets.supaKey,
   );
+  await Hive.initFlutter();
+  Hive.registerAdapter(BlogModelAdapter());
+ await Hive.openBox<BlogModel>('blogs');
   getIt.registerSingleton<SupabaseClient>(supaBase.client);
   getIt.registerSingleton<RemoteAuthDataSource>(
     RemoteAuthDataSourceImpl(getIt.get<SupabaseClient>()),
@@ -35,8 +41,14 @@ Future<void> setupServiceLocator() async {
   getIt.registerSingleton<RemoteBlogDataSource>(
     RemoteBlogDataSourceImpl(getIt.get<SupabaseClient>()),
   );
+  getIt.registerSingleton<LocalBlogDataSource>(
+    LocalBlogDataSourceImpl(blogBox: Hive.box('blogs')),
+  );
   getIt.registerSingleton<BlogRepo>(
-    BlogRepoImpl(getIt.get<RemoteBlogDataSource>()),
+    BlogRepoImpl(
+      remoteAddBlogDataSource: getIt.get<RemoteBlogDataSource>(),
+      localBlogDataSource: getIt.get<LocalBlogDataSource>(),
+    ),
   );
   getIt.registerSingleton<AddBlogUseCase>(
     AddBlogUseCase(blogRepo: getIt.get<BlogRepo>()),
