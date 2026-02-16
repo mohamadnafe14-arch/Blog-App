@@ -41,7 +41,7 @@ class BlogRepoImpl implements BlogRepo {
       );
       blogModel = blogModel.copyWith(imageUrl: imageUrl);
       final blog = await remoteAddBlogDataSource.uploadBlog(blogModel);
-      await localBlogDataSource.saveBlog(blog);
+      localBlogDataSource.clearAllBlogs();
       return Right(blog);
     } on ServerException catch (e) {
       return Left(Failure(e.message));

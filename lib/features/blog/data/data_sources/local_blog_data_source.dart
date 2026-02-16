@@ -2,9 +2,9 @@ import 'package:blog_app/features/blog/data/models/blog_model.dart';
 import 'package:hive/hive.dart';
 
 abstract class LocalBlogDataSource {
-  Future<void> saveBlog(BlogModel blogModel);
   List<BlogModel> getBlogs();
   Future<void> saveAllBlogs(List<BlogModel> blogs);
+  Future<void> clearAllBlogs();
 }
 class LocalBlogDataSourceImpl implements LocalBlogDataSource {
   final Box<BlogModel> blogBox;
@@ -15,13 +15,15 @@ class LocalBlogDataSourceImpl implements LocalBlogDataSource {
     await blogBox.addAll(blogs);
   }
   
-  @override
-  Future<void> saveBlog(BlogModel blogModel)async {
-    await blogBox.add(blogModel);
-  }
+
   
   @override
   List<BlogModel> getBlogs() {
     return blogBox.values.toList();
+  }
+  
+  @override
+  Future<void> clearAllBlogs() async{
+    await blogBox.clear();
   }
 }

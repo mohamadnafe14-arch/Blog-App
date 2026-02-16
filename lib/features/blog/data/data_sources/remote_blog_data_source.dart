@@ -20,9 +20,18 @@ class RemoteBlogDataSourceImpl implements RemoteBlogDataSource {
       final response = await supabaseClient
           .from('blogs')
           .insert(blogModel.toMap())
-          .select()
+          .select('*, profiles(name)') // ✅ عدّلت هنا
           .single();
-      return BlogModel.fromMap(response);
+      
+      // ✅ استخرج الـ name
+      String? userName;
+      if (response['profiles'] != null && response['profiles'] is Map) {
+        userName = response['profiles']['name'] as String?;
+      }
+      
+      return BlogModel.fromMap(response).copyWith(
+        name: userName ?? "Unknown User",
+      );
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
